@@ -1,18 +1,22 @@
 package ch.gibm.bean;
 
 import java.io.Serializable;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import com.sun.faces.context.flash.ELFlash;
 
 import ch.gibm.entity.Language;
 import ch.gibm.entity.Person;
+import ch.gibm.entity.User;
 import ch.gibm.facade.PersonFacade;
+import ch.gibm.facade.UserFacade;
 
 @ViewScoped
 @ManagedBean
@@ -26,15 +30,18 @@ public class PersonBean extends AbstractBean implements Serializable {
 	private Person personWithLanguages;
 	private Person personWithLanguagesForDetail;
 
-	@ManagedProperty(value="#{languageBean}")
+	@ManagedProperty(value = "#{languageBean}")
 	private LanguageBean languageBean;
-	
 
 	private List<Person> persons;
 	private PersonFacade personFacade;
+	private UserFacade userFacade;
 
 	public void createPerson() {
 		try {
+			String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+			User currentUser = getUserFacade().getUserByName(username);
+			person.setUser(currentUser);
 			getPersonFacade().createPerson(person);
 			closeDialog();
 			displayInfoMessageToUser("Created with success");
@@ -142,6 +149,14 @@ public class PersonBean extends AbstractBean implements Serializable {
 		return personFacade;
 	}
 
+	public UserFacade getUserFacade() {
+		if (userFacade == null) {
+			userFacade = new UserFacade();
+		}
+
+		return userFacade;
+	}
+
 	public Person getPerson() {
 		if (person == null) {
 			person = new Person();
@@ -153,7 +168,7 @@ public class PersonBean extends AbstractBean implements Serializable {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	
+
 	public void setLanguageBean(LanguageBean languageBean) {
 		this.languageBean = languageBean;
 	}
@@ -165,13 +180,13 @@ public class PersonBean extends AbstractBean implements Serializable {
 
 		return persons;
 	}
-	
+
 	public List<Language> getRemainingLanguages(String name) {
-		//get all languages as copy
+		// get all languages as copy
 		List<Language> res = new ArrayList<Language>(this.languageBean.getAllLanguages());
-		//remove already added languages
+		// remove already added languages
 		res.removeAll(personWithLanguages.getLanguages());
-		//remove when name not occurs
+		// remove when name not occurs
 		res.removeIf(l -> l.getName().toLowerCase().contains(name.toLowerCase()) == false);
 		return res;
 	}

@@ -3,11 +3,15 @@ package ch.gibm.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 @Entity
@@ -24,6 +28,10 @@ public class Person implements Serializable {
 
 	@ManyToMany
 	private List<Language> languages;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "person_creator_fk"))
+	private User user;
 
 	public int getId() {
 		return id;
@@ -47,6 +55,14 @@ public class Person implements Serializable {
 
 	public void setLanguages(List<Language> languages) {
 		this.languages = languages;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

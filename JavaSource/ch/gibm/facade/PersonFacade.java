@@ -3,8 +3,6 @@ package ch.gibm.facade;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import ch.gibm.dao.EntityManagerHelper;
 import ch.gibm.dao.LanguageDAO;
 import ch.gibm.dao.PersonDAO;
@@ -19,6 +17,7 @@ public class PersonFacade implements Serializable {
 
 	public void createPerson(Person person) {
 		EntityManagerHelper.beginTransaction();
+		
 		personDAO.save(person);
 		EntityManagerHelper.commitAndCloseTransaction();
 	}

@@ -25,4 +25,34 @@
 		<param-value>nova-light</param-value>
 	</context-param>
 
+	<security-constraint>
+		<display-name>App</display-name>
+		<web-resource-collection>
+			<web-resource-name>start</web-resource-name>
+			<description />
+			<url-pattern>/pages/public/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>USER</role-name>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/pages/public/login.xhtml</form-login-page>
+			<form-error-page>/pages/public/accessDenied.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<description />
+		<role-name>USER</role-name>
+	</security-role>
+	<security-role>
+		<description />
+		<role-name>ADMIN</role-name>
+	</security-role>
 </web-app>
