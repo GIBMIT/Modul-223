@@ -29,7 +29,7 @@ public class Person implements Serializable {
 	@ManyToMany
 	private List<Language> languages;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "person_creator_fk"))
 	private User user;
 
