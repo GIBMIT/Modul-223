@@ -1,5 +1,6 @@
 package ch.gibm.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -69,7 +70,11 @@ public class User {
 	}
 	
 	public void addPerson(Person person) {
+		if(people == null){
+			people = new ArrayList<Person>();
+		}
 		this.people.add(person);
+		person.setUser(this);
 	}
 
 	public void setPeople(List<Person> people) {
@@ -79,4 +84,5 @@ public class User {
 	public List<Person> getPeople() {
 		return this.people; 
 	}
+	
 }

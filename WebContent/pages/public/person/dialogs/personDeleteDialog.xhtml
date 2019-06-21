@@ -5,7 +5,7 @@
 	<p:dialog widgetVar="personDeleteDialogWidget" id="personDeleteDialogId" height="150" width="500" modal="true"
 		closable="true" draggable="false" resizable="false">
 		<h:form id="personDeleteDialogForm" prependId="false">
-			#{bundle.deleteRecord}: <h:outputText value="#{personBean.person.name}" /><br/><br/>
+			#{bundle.deleteRecord}: <h:outputText value="#{personBean.person.name} #{personBean.person.nachname}" /><br/><br/>
 
 			<p:commandButton value="#{bundle.delete}" icon="pi pi-trash" action="#{personBean.deletePerson()}"
 				update=":messageGrowl :personsForm:personsTable"

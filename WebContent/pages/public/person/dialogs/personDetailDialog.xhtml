@@ -5,9 +5,10 @@
 	<p:dialog header="#{bundle.detail}" widgetVar="personDetailDialogWidget" id="personDetailDialogId" width="500" modal="true" closable="true"
 		draggable="false" resizable="false">
 		<h:form id="personDetailDialogForm" prependId="false">
-			<h:panelGrid columns="2">
-				<h:outputText value="#{bundle.personName}" />
+			<h:panelGrid columns="3">
+				<h:outputText value="#{bundle.personName}:" />
 				<h:outputText value="#{personBean.personWithLanguagesForDetail.name}" />
+				<h:outputText value="#{personBean.personWithLanguagesForDetail.nachname}" />
 			</h:panelGrid>
  			<br />
  			<p:orderList value="#{personBean.personWithLanguagesForDetail.languages}" var="language" itemValue="#{language}" 

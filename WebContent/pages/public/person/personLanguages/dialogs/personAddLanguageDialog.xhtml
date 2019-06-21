@@ -5,7 +5,7 @@
 	<p:dialog widgetVar="personAddLanguageDialogWidget" id="personAddLanguageDialogId" height="150" width="500" modal="true" closable="true" draggable="false"
 		resizable="false">
 		<h:form id="personAddLanguageDialogForm" prependId="false">
-			#{bundle.personAddLanguageTo}: <h:outputText value="#{personBean.personWithLanguages.name}" />
+			#{bundle.personAddLanguageTo}: <h:outputText value="#{personBean.personWithLanguages.name} #{personBean.personWithLanguages.nachname}" />
 			<br />
             <p:autoComplete forceSelection="true" value="#{personBean.language}" label="#{bundle.language}" required="true" var="language"
 				itemLabel="#{language.name}" itemValue="#{language}" completeMethod="#{personBean.getRemainingLanguages}" dropdown="true" />

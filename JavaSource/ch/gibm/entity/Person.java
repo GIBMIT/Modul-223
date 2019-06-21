@@ -25,11 +25,12 @@ public class Person implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	private String nachname;
 
 	@ManyToMany
 	private List<Language> languages;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "person_creator_fk"))
 	private User user;
 
@@ -63,6 +64,14 @@ public class Person implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getNachname() {
+		return nachname;
+	}
+
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
 	}
 
 	@Override
