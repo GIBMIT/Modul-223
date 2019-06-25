@@ -95,5 +95,4 @@ public class User {
 	public void setVersion(long version) {
 		this.version = version;
 	}
-	
 }
