@@ -10,6 +10,8 @@
 				<h:outputText value="#{userBean.user.username}" />
 				<h:outputText value="#{bundle.userRole} :" />
 				<h:outputText value="#{userBean.user.role}" />
+				<h:outputText value="#{bundle.userEmail} :" />
+				<h:outputText value="#{userBean.user.email}" />
 
 				<p:commandButton value="#{bundle.ok}" icon="pi pi-check" actionListener="#{userBean.resetUser()}"
 					onclick="PF('userDetailDialogWidget').hide()" />

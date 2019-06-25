@@ -22,6 +22,10 @@
 				<p:inputText type="password" value="#{userBean.user.password}" required="true" label="#{bundle.userPassword}" >
 					<f:validateLength minimum="4" />
 				</p:inputText>
+				<!--  <h:outputText value="#{bundle.userEmail}" />
+				<p:inputText type="email" value="#{userBean.user.email}" label="#{bundle.userEmail}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>-->
 		
 				<p:commandButton value="#{bundle.create}" icon="pi pi-plus"
 					action="#{userBean.createUser()}"

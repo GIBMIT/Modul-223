@@ -26,7 +26,19 @@
 	</context-param>
 
 	<security-constraint>
-		<display-name>App</display-name>
+		<display-name>User</display-name>
+		<web-resource-collection>
+			<web-resource-name>start</web-resource-name>
+			<description />
+			<url-pattern>/pages/public/user/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>APP</display-name>
 		<web-resource-collection>
 			<web-resource-name>start</web-resource-name>
 			<description />

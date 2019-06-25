@@ -16,28 +16,26 @@ import ch.gibm.entity.Language;
 import ch.gibm.entity.User;
 import ch.gibm.facade.UserFacade;
 
-@ViewScoped
-@ManagedBean(name = "userBean")
-public class UserBean extends AbstractBean implements Serializable {
+@SessionScoped
+@ManagedBean(name = "userProfilBean")
+public class UserProfilBean extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private User user;
 	private User userforlogin;
 	private UserFacade userFacade;
 	private List<User> users;
 
-	public boolean isAdmin() {
-		return this.getUserForLogin() != null ? this.user.isAdmin() : false;
+	
+	public String isAdmin() {
+		if(this.getUserForLogin() != null) {
+			return "";
+		}
+		else{
+			return "disable";
+		}
+		
 	}
-
-	public boolean isDefaultUser() {
-		return this.getUserForLogin() != null ? this.user.isUser() : false;
-	}
-
-	public String logout() {
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "/pages/public/index.xhtml?faces-redirect=true";
-	}
-
+	
 	public User getUserForLogin() {
 		if (this.userforlogin == null) {
 			Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -66,27 +64,6 @@ public class UserBean extends AbstractBean implements Serializable {
 		this.user = user;
 	}
 	
-	public List<User> getAllUsers() {
-		if (users == null) {
-			loadUsers();
-		}
-
-		return users;
-	}
-	
-	public void createUser() {
-		try {
-			getUserFacade().createUser(user);
-			closeDialog();
-			displayInfoMessageToUser("Created with success");
-			loadUsers();
-			resetUser();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while saving. Try again later");
-			e.printStackTrace();
-		}
-	}
 
 	public void updateUser() {
 		try {
@@ -102,19 +79,6 @@ public class UserBean extends AbstractBean implements Serializable {
 		}
 	}
 
-	public void deleteUser() {
-		try {
-			getUserFacade().deleteUser(user);
-			closeDialog();
-			displayInfoMessageToUser("Deleted with success");
-			loadUsers();
-			resetUser();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while removing. Try again later");
-			e.printStackTrace();
-		}
-	}
 	public UserFacade getUserFacade() {
 		if (userFacade == null) {
 			userFacade = new UserFacade();

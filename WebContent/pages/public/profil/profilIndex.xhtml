@@ -7,21 +7,22 @@
 			<h:form id="profilForm">
 				<h:panelGrid columns="2">
 				<h:outputText value="#{bundle.userUsername}" />
-				<p:inputText value="#{userBean.user.username}" required="true" label="#{bundle.userUsername}" >
+				<p:inputText value="#{userProfilBean.user.username}" required="true" label="#{bundle.userUsername}" >
 					<f:validateLength minimum="4" />
 				</p:inputText>
 				<h:outputText value="#{bundle.userPassword}" />
-				<p:inputText type="password" value="#{userBean.user.password}" required="true" label="#{bundle.userPassword}" >
+				<p:inputText type="password" value="#{userProfilBean.user.password}" required="true" label="#{bundle.userPassword}" >
 					<f:validateLength minimum="4" />
 				</p:inputText>
 				<h:outputText value="#{bundle.userEmail}" />
-				<p:inputText type="password" value="#{userBean.user.password}" required="true" label="#{bundle.userPassword}" >
+				<p:inputText value="#{userProfilBean.user.email}" required="true" label="#{bundle.userPassword}" >
 					<f:validateLength minimum="4" />
 				</p:inputText>
 		
 				<p:commandButton value="#{bundle.update}" icon="pi pi-save"
-					action="#{userBean.updateUser()}"
+					action="#{userProfilBean.updateUser()}"
 					update=":messageGrowl :profilForm"
+					onclick="location.href='http://localhost:8080/JSFApp/pages/public/index.xhtml';"
 					oncomplete="closeDialogIfSucess(xhr, status, args, PF('userUpdateDialogWidget'), 'userUpdateDialogId')" />
 			</h:panelGrid>
 			</h:form>

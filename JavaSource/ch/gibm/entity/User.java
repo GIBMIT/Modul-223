@@ -25,6 +25,8 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+	private String email;
+
 	@Version
 	private long version;
 
@@ -94,5 +96,13 @@ public class User {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

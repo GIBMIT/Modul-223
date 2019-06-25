@@ -17,9 +17,13 @@
 					<p:menuitem value="#{bundle.languagePlural}"
 						action="/pages/public/language/languageIndex.xhtml?faces-redirect=true"
 						update="messages" ajax="false" icon="pi pi-comments" />
-					<p:menuitem value="#{bundle.user}"
+					<p:menuitem value="#{bundle.user}" 
 						action="/pages/public/user/userIndex.xhtml?faces-redirect=true"
 						update="messages" ajax="false" icon="pi pi-user" />
+					<p:menuitem value="#{bundle.logout}" 
+						action="/pages/public/logout.xhtml?faces-redirect=true"
+						update="messages" ajax="false" icon="pi pi-arrow-circle-left" />
+						
 				</p:submenu>
 			</p:menu>
 		</h:form>
