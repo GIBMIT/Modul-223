@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="userUpdateDialogWidget"
+		id="userUpdateDialogId" height="250" width="500" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="userUpdateDialogForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.userUsername}" />
+				<p:inputText value="#{userBean.user.username}" required="true" label="#{bundle.userUsername}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>
+				<h:outputText value="* #{bundle.userRole}" />
+				<p:inputText value="#{userBean.user.role}" required="true" label="#{bundle.userRole}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>
+				<h:outputText value="* #{bundle.userPassword}" />
+				<p:inputText type="password" value="#{userBean.user.password}" required="true" label="#{bundle.userPassword}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>
+		
+				<p:commandButton value="#{bundle.update}" icon="pi pi-save"
+					action="#{userBean.updateUser()}"
+					update=":messageGrowl :userForm:userTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, PF('userUpdateDialogWidget'), 'userUpdateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="pi pi-ban" actionListener="#{userBean.resetUser()}"
+					onclick="PF('userUpdateDialogWidget').hide()" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

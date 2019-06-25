@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Version;
 
 @Entity
 @NamedQuery(name = "Person.findPersonByIdWithLanguages", query = "select p from Person p left join fetch p.languages where p.id = :personId")
@@ -25,11 +26,14 @@ public class Person implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-
+	private String nachname;
+	@Version
+	private long version;
+	
 	@ManyToMany
 	private List<Language> languages;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "person_creator_fk"))
 	private User user;
 
@@ -63,6 +67,22 @@ public class Person implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getNachname() {
+		return nachname;
+	}
+
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+	}
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 	@Override

@@ -15,6 +15,13 @@
 
 						<h:outputText value="#{person.name}" />
 					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.surname}" />
+						</f:facet>
+
+						<h:outputText value="#{person.nachname}" />
+					</p:column>
 
 					<p:column>
 						<p:commandButton icon="pi pi-info" onclick="PF('personDetailDialogWidget').show()" update=":personDetailDialogForm" >

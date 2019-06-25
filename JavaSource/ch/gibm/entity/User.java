@@ -1,5 +1,6 @@
 package ch.gibm.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 @Entity
 @NamedQuery(name = "User.findByUsername", query = "select u from User u where u.username = :username")
@@ -23,6 +25,8 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+	@Version
+	private long version;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
@@ -69,7 +73,11 @@ public class User {
 	}
 	
 	public void addPerson(Person person) {
+		if(people == null){
+			people = new ArrayList<Person>();
+		}
 		this.people.add(person);
+		person.setUser(this);
 	}
 
 	public void setPeople(List<Person> people) {
@@ -79,4 +87,13 @@ public class User {
 	public List<Person> getPeople() {
 		return this.people; 
 	}
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	
 }

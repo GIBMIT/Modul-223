@@ -48,6 +48,9 @@ public class EntityManagerHelper {
 	public static void rollback() {
 		getEntityManager().getTransaction().rollback();
 	}
+	public static boolean isActive() {
+		return getEntityManager().getTransaction().isActive();
+	}
 
 	public static void commit() {
 		getEntityManager().getTransaction().commit();

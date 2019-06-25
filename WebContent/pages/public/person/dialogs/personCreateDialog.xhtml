@@ -12,6 +12,8 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="* #{bundle.personName}" />
 				<p:inputText value="#{personBean.person.name}" required="true" label="#{bundle.personName}" />
+				<h:outputText value="* #{bundle.surname}" />
+				<p:inputText value="#{personBean.person.nachname}" required="true" label="#{bundle.surname}" />
 		
 				<p:commandButton value="#{bundle.create}" icon="pi pi-plus"
 					action="#{personBean.createPerson()}"
