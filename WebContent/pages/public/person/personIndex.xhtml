@@ -22,6 +22,13 @@
 
 						<h:outputText value="#{person.nachname}" />
 					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.owner}" />
+						</f:facet>
+
+						<h:outputText value="#{person.user.username}" />
+					</p:column>
 
 					<p:column>
 						<p:commandButton icon="pi pi-info" onclick="PF('personDetailDialogWidget').show()" update=":personDetailDialogForm" >
@@ -35,7 +42,6 @@
 						<p:commandButton icon="pi pi-trash" update=":personDeleteDialogForm" onclick="PF('personDeleteDialogWidget').show()" >
 							<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />
 						</p:commandButton>
-						<p:spacer width="10px" />
 						<p:commandButton value="#{bundle.languagePlural}" icon="pi pi-pencil" ajax="false"
 							action="#{personBean.editPersonLanguages()}">
 								<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />

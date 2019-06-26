@@ -3,6 +3,8 @@ package ch.gibm.facade;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import ch.gibm.dao.EntityManagerHelper;
 import ch.gibm.dao.LanguageDAO;
 import ch.gibm.dao.PersonDAO;
@@ -17,64 +19,131 @@ public class PersonFacade implements Serializable {
 
 	public void createPerson(Person person) {
 		EntityManagerHelper.beginTransaction();
-		
-		personDAO.save(person);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			personDAO.save(person);
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
 	}
 
 	public void updatePerson(Person person) {
 		EntityManagerHelper.beginTransaction();
-		Person persistedPerson = personDAO.find(person.getId());
-		persistedPerson.setName(person.getName());
-		persistedPerson.setNachname(person.getNachname());
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			Person persistedPerson = personDAO.find(person.getId());
+			persistedPerson.setName(person.getName());
+			persistedPerson.setNachname(person.getNachname());
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
 	}
 	
 	public void deletePerson(Person person){
 		EntityManagerHelper.beginTransaction();
-		Person persistedPersonWithIdOnly = personDAO.findReferenceOnly(person.getId());
-		personDAO.delete(persistedPersonWithIdOnly);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			Person persistedPersonWithIdOnly = personDAO.findReferenceOnly(person.getId());
+			personDAO.delete(persistedPersonWithIdOnly);
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
 		
 	}
 
 	public Person findPerson(int personId) {
 		EntityManagerHelper.beginTransaction();
 		Person person = personDAO.find(personId);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+			
+		}
 		return person;
+		
 	}
 
 	public List<Person> listAll() {
 		EntityManagerHelper.beginTransaction();
 		List<Person> result = personDAO.findAll();
-		EntityManagerHelper.commitAndCloseTransaction();
-
+		try {
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
+		
 		return result;
 	}
 
 	public Person findPersonWithAllLanguages(int personId) {
 		EntityManagerHelper.beginTransaction();
 		Person person = personDAO.findPersonWithAllLanguages(personId);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
+		
 		return person;
 	}
 
 	public void addLanguageToPerson(int languageId, int personId) {
 		EntityManagerHelper.beginTransaction();
-		Language language = languageDAO.find(languageId);
-		Person person = personDAO.find(personId);
-		person.getLanguages().add(language);
-		language.getPersons().add(person);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			Language language = languageDAO.find(languageId);
+			Person person = personDAO.find(personId);
+			person.getLanguages().add(language);
+			language.getPersons().add(person);
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
 	}
 
 	public void removeLanguageFromPerson(int languageId, int personId) {
 		EntityManagerHelper.beginTransaction();
-		Language language = languageDAO.find(languageId);
-		Person person = personDAO.find(personId);
-		person.getLanguages().remove(language);
-		language.getPersons().remove(person);
-		EntityManagerHelper.commitAndCloseTransaction();
+		try {
+			Language language = languageDAO.find(languageId);
+			Person person = personDAO.find(personId);
+			person.getLanguages().remove(language);
+			language.getPersons().remove(person);
+			EntityManagerHelper.commit();			
+		}catch(PersistenceException e) {
+			if(EntityManagerHelper.isActive()) {
+				EntityManagerHelper.rollback();
+			}
+		}finally {
+			EntityManagerHelper.closeEntityManager();
+		}
+
 	}
 }

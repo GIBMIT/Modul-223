@@ -20,14 +20,32 @@ public class EntityManagerHelper {
 
 	private static void loadDefaultUsers() {
 		UserFacade userFacade = new UserFacade();
-		User user = userFacade.getUserByName("admin");
-		if (user == null) {
-			user = new User();
-			user.setRole("ADMIN");
-			user.setPassword("admin");
-			user.setUsername("admin");
+		User userAdmin = userFacade.getUserByName("admin");
+		if (userAdmin == null) {
+			userAdmin = new User();
+			userAdmin.setRole("ADMIN");
+			userAdmin.setPassword("admin");
+			userAdmin.setUsername("admin");
 
-			userFacade.createUser(user);
+			userFacade.createUser(userAdmin);
+		}
+		User userBjoern = userFacade.getUserByName("bjoern.pfoster");
+		if (userBjoern == null) {
+			userBjoern = new User();
+			userBjoern.setRole("USER");
+			userBjoern.setPassword("bjoern");
+			userBjoern.setUsername("bjoern.pfoster");
+
+			userFacade.createUser(userBjoern);
+		}
+		User userNicola = userFacade.getUserByName("nicola.hasler");
+		if (userNicola == null) {
+			userNicola = new User();
+			userNicola.setRole("USER");
+			userNicola.setPassword("nicola");
+			userNicola.setUsername("nicola.hasler");
+
+			userFacade.createUser(userNicola);
 		}
 	}
 
